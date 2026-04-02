@@ -30,13 +30,14 @@ public class Notification {
     @Enumerated(EnumType.STRING)
     private NotificationType notificationType;
 
+    @Column(name = "is_read")
     private boolean read = false;
 
     @ManyToMany
     @JoinTable(
         name = "user_notifications", 
-        joinColumns = @JoinColumn(name = "notification_id"), 
-        inverseJoinColumns = @JoinColumn(name = "user_id") 
+        joinColumns = @JoinColumn(name = "notification_id", columnDefinition = "binary(16)"), 
+        inverseJoinColumns = @JoinColumn(name = "user_id", columnDefinition = "binary(16)") 
     )
     private Set<User> users = new HashSet<>();
 
