@@ -36,3 +36,5 @@ build/
 /logs
 src/main/resources/credentials.json
 tokens/
+src/main/resources/google-credentials.json
+src/main/resources/application-secrets.properties
