@@ -1,5 +1,6 @@
 package javawizzards.officespace.controller;
 
+import javawizzards.officespace.exception.User.UserCustomException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import javawizzards.officespace.dto.Request.Request;
@@ -112,6 +113,10 @@ public class AuthenticationController {
             this.requestAndResponseService.CreateRequestAndResponse(request, response, LoggingUtils.logControllerName(this), LoggingUtils.logMethodName());
             return ResponseEntity.ok(response);
 
+        } catch (UserCustomException e) {
+            response = new Response<>(e.getMessage());
+            this.requestAndResponseService.CreateRequestAndResponse(request, response, LoggingUtils.logControllerName(this),LoggingUtils.logMethodName());
+            return ResponseEntity.badRequest().body(response);
         } catch (Exception e) {
             response = new Response<>(e.getMessage());
             this.requestAndResponseService.CreateRequestAndResponse(request, response, LoggingUtils.logControllerName(this),LoggingUtils.logMethodName());

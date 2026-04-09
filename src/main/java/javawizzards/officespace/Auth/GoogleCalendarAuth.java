@@ -113,7 +113,10 @@ public class GoogleCalendarAuth {
     private InputStream getInputStream(String pathCredentials) {
         try {
             Path path = Paths.get(credentialsDirectoryPath, "google-credentials.json");
-            return Files.newInputStream(Paths.get(path.toString()));
+            if (Files.exists(path)) {
+                return Files.newInputStream(path);
+            }
+            return new ClassPathResource("google-credentials.json").getInputStream();
 
         } catch (IOException e) {
             throw new GoogleCalendarLibException("Resource not found: google-credentials.json", e);
