@@ -30,6 +30,7 @@ public class Notification {
     @Enumerated(EnumType.STRING)
     private NotificationType notificationType;
 
+    @Column(name = "is_read")
     private boolean read = false;
 
     @ManyToMany

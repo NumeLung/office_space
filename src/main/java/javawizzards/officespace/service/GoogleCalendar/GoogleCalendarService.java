@@ -11,6 +11,5 @@ public interface GoogleCalendarService {
     //void createEvent(CalendarEvent dto);
     void createEvent(CreateReservationDto dto);
 
-    @SneakyThrows
     List<Event> getEvents(LocalDateTime dateTimeStart, LocalDateTime dateTimeEnd);
 }

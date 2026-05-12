@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 @NoArgsConstructor
 @Getter
 @Setter

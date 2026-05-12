@@ -151,9 +151,9 @@ private List<Department> createDepartmentsForCompany(Company company) {
             "Marketing", DepartmentType.MARKETING,
             "DevOps", DepartmentType.DEVOPS,
             "IT", DepartmentType.IT_SUPPORT,
-            "Sales", DepartmentType.SALES,
-            "Research & Development", DepartmentType.RESEARCH_AND_DEVELOPMENT,
-            "IT Suport", DepartmentType.IT_SUPPORT
+            "Maintenance", DepartmentType.MAINTENANCE,
+            "Cleaning", DepartmentType.CLEANING,
+            "General", DepartmentType.GENERAL
     );
 
     List<Department> departments = new ArrayList<>();
@@ -161,14 +161,11 @@ private List<Department> createDepartmentsForCompany(Company company) {
     User user = this.userRepository.findByEmail("user@gmail.com").orElseThrow(() -> new UserCustomException.UserNotFoundException());
     List<User> departmentUsers = new ArrayList<>();
     departmentUsers.add(user);
-    int numDepartments = 3 + (int)(Math.random() * 3);
 
-    List<String> departmentNames = new ArrayList<>(departmentTypes.keySet());
-    for (int i = 0; i < numDepartments; i++) {
-        String departmentName = departmentNames.get(i);
+    for (Map.Entry<String, DepartmentType> entry : departmentTypes.entrySet()) {
         Department department = new Department();
-        department.setName(departmentName);
-        department.setDepartmentType(departmentTypes.get(departmentName)); 
+        department.setName(entry.getKey());
+        department.setDepartmentType(entry.getValue());
         department.setCompany(company);
         department.setUsers(departmentUsers);
         departments.add(department);

@@ -35,7 +35,7 @@ public class GoogleCalendarServiceImpl implements GoogleCalendarService {
         validateReservationDto(dto); // Validate the CreateReservationDto
 
         // Check if an event already exists in Google Calendar
-        //TODO
+        // TODO
 
         Event event = createCalendarModelEvent(dto);
         sendEventToCalendarAPI(dto, event);
@@ -87,7 +87,8 @@ public class GoogleCalendarServiceImpl implements GoogleCalendarService {
 
         if (config.isLogEnabled()) {
             log.info("Sending Event to Google Calendar...");
-            log.info("Meeting Title: {}, Dates: {} - {}", dto.getEvent().getMeetingTitle(), dto.getStartDateTime(), dto.getEndDateTime());
+            log.info("Meeting Title: {}, Dates: {} - {}", dto.getEvent().getMeetingTitle(), dto.getStartDateTime(),
+                    dto.getEndDateTime());
         }
 
         String calendarId = "primary";
