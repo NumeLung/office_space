@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -28,6 +30,7 @@ public class ReservationController {
     private final ReservationService reservationService;
     private final RequestAndResponseService requestAndResponseService;
     private final GoogleCalendarService googleCalendarService;
+    private final Logger logger = Logger.getLogger(ReservationController.class.getName());
 
     public ReservationController(ReservationService reservationService, RequestAndResponseService requestAndResponseService, GoogleCalendarService googleCalendarService) {
         this.reservationService = reservationService;
@@ -54,7 +57,11 @@ public class ReservationController {
                 return ResponseEntity.badRequest().body(response);
             }
 
-            googleCalendarService.createEvent(request.getData());
+            try {
+                googleCalendarService.createEvent(request.getData());
+            } catch (Exception calendarEx) {
+                logger.warning("Google Calendar sync failed (non-fatal): " + calendarEx.getMessage());
+            }
 
             response = new Response<>(HttpStatus.CREATED, ReservationMessages.RESERVATION_SUCCESS.getMessage());
             this.requestAndResponseService.CreateRequestAndResponse(request, response, LoggingUtils.logControllerName(this), LoggingUtils.logMethodName());

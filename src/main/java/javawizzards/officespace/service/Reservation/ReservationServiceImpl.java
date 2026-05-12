@@ -26,6 +26,7 @@ import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -37,6 +38,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final EmailService emailService;
+    private final Logger logger = Logger.getLogger(ReservationServiceImpl.class.getName());
 
     public ReservationServiceImpl(ReservationRepository reservationRepository,
                                   OfficeRoomRepository officeRoomRepository,
@@ -120,7 +122,11 @@ public class ReservationServiceImpl implements ReservationService {
             Reservation savedReservation = reservationRepository.save(reservation);
             userRepository.save(user);
 
-            this.sendReservationConfirmationEmail(savedReservation, officeRoom, user);
+            try {
+                this.sendReservationConfirmationEmail(savedReservation, officeRoom, user);
+            } catch (Exception emailEx) {
+                logger.warning("Reservation confirmation email failed (non-fatal): " + emailEx.getMessage());
+            }
 
             return mapToDto(savedReservation);
         } catch (ReservationCustomException e) {
