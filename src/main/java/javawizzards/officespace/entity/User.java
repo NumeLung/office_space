@@ -72,6 +72,13 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Notification> notifications = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_favorite_rooms",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "office_room_id")
+    )
+    private Set<OfficeRoom> favoriteRooms = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

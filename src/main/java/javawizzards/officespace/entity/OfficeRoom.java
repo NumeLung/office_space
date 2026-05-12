@@ -13,7 +13,9 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -75,5 +77,8 @@ public class OfficeRoom {
     @OneToMany(mappedBy = "officeRoom", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resource> resources = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "favoriteRooms", fetch = FetchType.LAZY)
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private Set<User> favoritedByUsers = new HashSet<>();
 
 }

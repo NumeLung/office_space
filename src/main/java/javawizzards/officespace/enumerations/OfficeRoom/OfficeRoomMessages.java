@@ -29,7 +29,12 @@ public enum OfficeRoomMessages {
     RESOURCE_REMOVED_SUCCESS("Resource removed successfully"),
     STATUSES_FETCH_SUCCESS("Statuses fetched successfully"),
     TYPES_FETCH_SUCCESS("Types fetched successfully"),
-    CUSTOM_ERROR("Custom office room error occurred");
+    CUSTOM_ERROR("Custom office room error occurred"),
+
+    FAVORITE_ADDED("Room added to favorites."),
+    FAVORITE_REMOVED("Room removed from favorites."),
+    FAVORITES_FETCHED("Favorite rooms fetched successfully."),
+    FAVORITE_TOGGLE_FAILED("Failed to toggle favorite room.");
 
     private final String message;
 
